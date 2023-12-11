@@ -1,2 +1,6 @@
 Competition link:
 https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques
+
+Files:
+- **EDA.ipynb** for data exploration
+- **Model.ipynb** for modelling
