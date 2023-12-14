@@ -7,15 +7,19 @@ from tqdm import tqdm
 
 path = 'data/optiver-trading-at-the-close/'
 
-def get_train():
+def get_train(dropNull=True):
     p = path+'train.csv'
     print(f"{p} - loaded")
-    return pd.read_csv(p)
+    df = pd.read_csv(p, index_col='row_id')
+    if dropNull:
+        df=df[~df.target.isnull()]
+        df=df[~df.wap.isna()] # when missing, the whole date_id / stock_id missing
+    return df
 
 def get_test():
     p =path+'example_test_files/test.csv'
     print(f"{p} - loaded")
-    return pd.read_csv(p)
+    return pd.read_csv(p, index_col='row_id')
 
 def add_feat(df, prt=True):
     df_res = df.copy()
