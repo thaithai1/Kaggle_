@@ -1,1 +1,3 @@
-house_prices/
+Optiver/data/
+.DS_Store
+*__pycache__*
