@@ -7,8 +7,11 @@ from tqdm import tqdm
 
 path = 'data/optiver-trading-at-the-close/'
 
-def get_train(dropNull=True):
-    p = path+'train.csv'
+def get_train(local_path=None, dropNull=True):
+    if local_path is None:
+        p = path+'train.csv'
+    else:
+        p = local_path+'train.csv'
     print(f"{p} - loaded")
     df = pd.read_csv(p, index_col='row_id')
     if dropNull:

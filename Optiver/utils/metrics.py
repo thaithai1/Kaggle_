@@ -2,7 +2,7 @@ from sklearn.metrics import mean_absolute_error
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from preprocessing import *
+from utils.preprocessing import *
 
 def score(df_res, metric_func=mean_absolute_error):
     return metric_func(df_res.target,df_res.pred)
@@ -12,7 +12,7 @@ def train_test_score(df_train_raw, df_test_raw, model, preprocess=Preprocessing_
     
     # Model setup
     X_train_raw, y_train = df_train_raw.drop('target', axis=1), df_train_raw['target']
-    X_train = preprocess.run(X_train_raw)
+    X_train = preprocess.fit_transform(X_train_raw)
     model.fit(X_train, y_train)
 
     # Train score
@@ -33,7 +33,7 @@ def train_test_score(df_train_raw, df_test_raw, model, preprocess=Preprocessing_
             sample_prediction = pd.DataFrame({'target':np.nan}, index = test.index)
 
             # Submission model
-            X_test = preprocess.run(test)
+            X_test = preprocess.transform(test)
             model.add_data() #TO MODIFY =======
             sample_prediction['target'] = model.predict(X_test)
 
@@ -55,8 +55,8 @@ def train_test_score_fast(df_train_raw, df_test_raw, model, preprocess=Preproces
     # Model setup
     X_train_raw, y_train = df_train_raw.drop('target', axis=1), df_train_raw['target']
     X_test_raw, y_test = df_test_raw.drop('target', axis=1), df_test_raw['target']
-    X_train = preprocess.run(X_train_raw)
-    X_test = preprocess.run(X_test_raw)
+    X_train = preprocess.fit_transform(X_train_raw)
+    X_test = preprocess.transform(X_test_raw)
     model.fit(X_train, y_train)
 
     # Train score
