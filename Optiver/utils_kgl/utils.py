@@ -47,3 +47,8 @@ def reduce_mem_usage(df, verbose=0):
         logger.info(f"Decreased by {decrease:.2f}%")
     return df
 
+
+def get_name_from_param_dict(lgb_params):
+    sorted_params = {i: lgb_params[i] for i in sorted(lgb_params.keys())}
+    return '_'.join([f'{k}_{v}' for k,v in sorted_params.items()])
+
