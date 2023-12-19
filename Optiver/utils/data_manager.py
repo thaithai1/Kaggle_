@@ -26,13 +26,14 @@ def get_test():
 
 def add_feat(df, prt=True):
     df_res = df.copy()
-    feat = ['imbalance_size_rel','wap60', 'wap_ret']
+    feat = ['imbalance_size_rel','wap60', 'wap_ret', 'imb/volume']
     if prt:
         print(f"{', '.join(feat)} - added")
     df_res['imbalance_size_rel'] = df_res['imbalance_size'] * df_res['imbalance_buy_sell_flag']
     df_res.sort_values(by=['stock_id', 'date_id', 'seconds_in_bucket'], inplace=True)
     df_res['wap60'] = df_res.groupby(['stock_id', 'date_id'])['wap'].shift(-6)
     df_res['wap_ret'] = (df_res['wap60'] / df_res['wap']-1)*1e4
+    df_res['imb/volume'] = df_res['imbalance_size_rel']/(df_res['ask_size']+df_res['bid_size'])
     return df_res
 
 def get_df_id_date(df, id, date_id): 

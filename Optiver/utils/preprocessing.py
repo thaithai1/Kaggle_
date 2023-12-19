@@ -26,7 +26,6 @@ class ChainPrepro(Preprocessing_null):
     def fit_transform(self, X):
         X_res = X.copy()
         for p in self.prepro_iter:
-            print(p)
             X_res=p.fit_transform(X_res)
         return X_res
 

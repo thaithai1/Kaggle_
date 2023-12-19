@@ -16,7 +16,7 @@ def train_test_score(df_train_raw, df_test_raw, model, preprocess=Preprocessing_
     model.fit(X_train, y_train)
 
     # Train score
-    df_res_train = pd.DataFrame({'target':y_train}, index = X_train.index)
+    df_res_train = pd.DataFrame({'target':y_train}, index = X_train_raw.index)
     df_res_train['pred'] = model.predict(X_train)
     mae_train = score(df_res_train)
 
@@ -60,11 +60,11 @@ def train_test_score_fast(df_train_raw, df_test_raw, model, preprocess=Preproces
     model.fit(X_train, y_train)
 
     # Train score
-    df_res_train = pd.DataFrame({'target':y_train}, index = X_train.index)
+    df_res_train = pd.DataFrame({'target':y_train}, index = X_train_raw.index)
     df_res_train['pred'] = model.predict(X_train)
     mae_train = score(df_res_train)
     # Test score
-    df_res_test = pd.DataFrame({'target':y_test}, index = X_test.index)
+    df_res_test = pd.DataFrame({'target':y_test}, index = X_test_raw.index)
     df_res_test['pred'] = model.predict(X_test)
     mae_test = score(df_res_test)
 
